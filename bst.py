@@ -7,6 +7,8 @@ class BST:
         self._root = None
 
     def add(self, entry):
+        """Adds an object to the BST by creating smaller and larger subtrees"""
+
         new_node = BinaryNode(entry)
         if self._root is None:
             self._root = new_node
@@ -15,6 +17,7 @@ class BST:
             self._rec_add(new_node, self._root)
 
     def _rec_add(self, new_node, cur_node):
+        """Recursively adds downstream"""
 
         # Check left
         if new_node.entry < cur_node.entry:
@@ -34,12 +37,16 @@ class BST:
             raise ValueError
 
     def search(self, key):
+        """Searches the BST for a key"""
+
         if self._root is None:
             raise KeyError
 
         return self._rec_search(key, self._root)
 
     def _rec_search(self, key, cur_node):
+        """Recursively searches downstream"""
+
         if cur_node.entry == key:
             return cur_node.entry
         elif cur_node.entry < key:
@@ -50,6 +57,8 @@ class BST:
             raise KeyError
 
     def preorder(self, visit_function):
+        """Prints the tree based on preorder"""
+
         return self._rec_preorder(visit_function, self._root)
 
     def _rec_preorder(self, visit_function, cur_node):
@@ -67,6 +76,8 @@ class BST:
         self._rec_preorder(visit_function, cur_node.right)
 
     def inorder(self, visit_function):
+        """Prints the tree based on inorder"""
+
         return self._rec_inorder(visit_function, self._root)
 
     def _rec_inorder(self, visit_function, cur_node):
@@ -84,6 +95,8 @@ class BST:
         self._rec_inorder(visit_function, cur_node.right)
 
     def postorder(self, visit_function):
+        """Prints the tree based on postorder"""
+
         return self._rec_postorder(visit_function, self._root)
 
     def _rec_postorder(self, visit_function, cur_node):
@@ -99,3 +112,18 @@ class BST:
 
         # Calls visit function on the current node's entry
         visit_function(cur_node.entry)
+
+    def remove(self, key):
+        """Removes the target node from the BST"""
+
+        if self._root is None:
+            raise KeyError
+
+        return self._rec_search(key, self._root)
+
+    def _rec_remove(self, key, cur_node):
+        """Recursively searches downstream until it finds the target and removes it"""
+
+        if cur_node.entry == key:
+            # Figure out how to update parent node
+            temp = cur_node
