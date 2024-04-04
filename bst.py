@@ -33,6 +33,19 @@ class BST:
         else:
             raise ValueError
 
+    def search(self, key):
+        return self._rec_search(key, self._root)
+
+    def _rec_search(self, key, cur_node):
+        if cur_node.entry == key:
+            return cur_node.entry
+        elif cur_node.entry < key:
+            self._rec_search(key, cur_node.left)
+        elif cur_node.entry > key:
+            self._rec_search(key, cur_node.right)
+        else:
+            raise KeyError("Something went wrong")
+
     def preorder(self, visit_function):
         return self._rec_preorder(visit_function, self._root)
 
