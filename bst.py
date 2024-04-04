@@ -34,6 +34,9 @@ class BST:
             raise ValueError
 
     def search(self, key):
+        if self._root is None:
+            raise KeyError
+
         return self._rec_search(key, self._root)
 
     def _rec_search(self, key, cur_node):
@@ -44,7 +47,7 @@ class BST:
         elif cur_node.entry > key:
             self._rec_search(key, cur_node.right)
         else:
-            raise KeyError("Something went wrong")
+            raise KeyError
 
     def preorder(self, visit_function):
         return self._rec_preorder(visit_function, self._root)

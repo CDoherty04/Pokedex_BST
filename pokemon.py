@@ -7,12 +7,18 @@ class Pokemon:
         self.id = pokemon_id
 
     def __gt__(self, other):
+        if isinstance(other, int):
+            return self.id > other
         return self.id > other.id
 
     def __lt__(self, other):
+        if isinstance(other, int):
+            return self.id < other
         return self.id < other.id
 
     def __eq__(self, other):
+        if isinstance(other, int):
+            return self.id == other
         return self.id == other.id
 
     def __repr__(self):

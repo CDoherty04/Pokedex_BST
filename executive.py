@@ -24,7 +24,7 @@ class Executive:
         """User input determines the attributes of the added Pokémon to the Pokédex"""
         us_name = input("What is the US name: ")
         jap_name = input("What is the Japanese name: ")
-        pokemon_id = input("What is the Pokedex number: ")
+        pokemon_id = int(input("What is the Pokedex number: "))
 
         new_pokemon = Pokemon(us_name, jap_name, pokemon_id)
         try:
@@ -35,7 +35,19 @@ class Executive:
     def search(self):
         """Prompt the user for an id. Either print all information OR tell the user that the Pokémon doesn't exist.
         The program should not crash if an id causes your BST to raise an exception."""
-        pass
+
+        try:
+            given_id = int(input("Which pokemon id are you searching for: "))
+
+            try:
+                print(self.pokedex.search(given_id))
+            except KeyError:
+                print("That Pokemon doesn't seem to exist")
+            except AttributeError:
+                print("That Pokemon doesn't exist in the Pokedex")
+
+        except ValueError:
+            print("Pokedex numbers use integers, that input is not valid")
 
     def ordered_print(self):
         """Prints the tree in a user-specified order"""
