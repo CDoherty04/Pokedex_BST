@@ -24,16 +24,16 @@ class Executive:
         """User input determines the attributes of the added Pokémon to the Pokédex"""
         us_name = input("What is the US name: ")
         jap_name = input("What is the Japanese name: ")
-        ssn = input("What is the Pokedex number: ")
+        pokemon_id = input("What is the Pokedex number: ")
 
-        new_pokemon = Pokemon(us_name, jap_name, ssn)
+        new_pokemon = Pokemon(us_name, jap_name, pokemon_id)
         try:
             self.pokedex.add(new_pokemon)
         except ValueError:
             print("Cannot add duplicates")
 
     def search(self):
-        """Prompt the user for their SSN. Either print all information OR tell the user that the Pokémon doesn't exist.
+        """Prompt the user for an id. Either print all information OR tell the user that the Pokémon doesn't exist.
         The program should not crash if an id causes your BST to raise an exception."""
         pass
 
@@ -64,7 +64,7 @@ class Executive:
                 print("That is not a valid option, enter 1, 2, or 3.")
 
         for _pokemon in pokemon:
-            print(str(_pokemon))
+            print(_pokemon)
 
     def remove(self):
         """Given a Pokédex number, remove that entry from the BST. When removing, the maximum value

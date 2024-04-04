@@ -1,19 +1,19 @@
 class Pokemon:
 
-    def __init__(self, us_name, jap_name, ssn):
+    def __init__(self, us_name, jap_name, pokemon_id):
         """Create a Pokémon object with a US name, Japanese name, and Pokédex number."""
         self.US_name = us_name
         self.JAP_name = jap_name
-        self.SSN = ssn
+        self.id = pokemon_id
 
     def __gt__(self, other):
-        return self.SSN > other.SSN
+        return self.id > other.id
 
     def __lt__(self, other):
-        return self.SSN < other.SSN
+        return self.id < other.id
 
     def __eq__(self, other):
-        return self.SSN == other.SSN
+        return self.id == other.id
 
-    def __str__(self):
-        return f"{self.US_name}, {self.JAP_name}, {self.SSN}"
+    def __repr__(self):
+        return f"US_name={self.US_name}, Japanese_name={self.JAP_name}, id={self.id}"
