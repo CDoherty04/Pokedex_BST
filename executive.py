@@ -14,6 +14,23 @@ def print_menu():
     return choice
 
 
+def choose_tree():
+    """"""
+
+    while True:
+
+        # Get valid input for which tree should be used
+        tree = input("Would you like to add to the (1) main tree or (2) the copy? ")
+
+        if tree == "main" or tree == "main tree" or tree == "1":
+            return "main"
+        elif tree == "copy" or tree == "the copy" or tree == "2":
+            return "copy"
+        # Only break when valid input is given
+        else:
+            print("That's an invalid input, try typing '1' or '2'")
+
+
 class Executive:
 
     def __init__(self):
@@ -23,6 +40,14 @@ class Executive:
 
     def add(self):
         """User input determines the attributes of the added Pokémon to the Pokédex"""
+
+        # Mark which tree is being manipulated by default
+        tree = "main"
+
+        # If a copy exists choose which tree should be manipulated
+        if self.copy:
+            tree = choose_tree()
+
         us_name = input("What is the US name: ")
         jap_name = input("What is the Japanese name: ")
 
@@ -35,7 +60,10 @@ class Executive:
 
             try:
                 new_pokemon = Pokemon(us_name, jap_name, pokemon_id)
-                self.pokedex.add(new_pokemon)
+                if tree == "main":
+                    self.pokedex.add(new_pokemon)
+                else:
+                    self.copy.add(new_pokemon)
                 break
             except ValueError:
                 print("\nCannot add duplicates\n")
@@ -44,11 +72,21 @@ class Executive:
         """Prompt the user for an id. Either print all information OR tell the user that the Pokémon doesn't exist.
         The program should not crash if an id causes your BST to raise an exception."""
 
+        # Mark which tree is being manipulated by default
+        tree = "main"
+
+        # If a copy exists choose which tree should be manipulated
+        if self.copy:
+            tree = choose_tree()
+
         try:
-            given_id = int(input("Which pokemon id are you searching for: "))
+            given_id = int(input("Which Pokemon ID are you searching for: "))
 
             try:
-                print(self.pokedex.search(given_id))
+                if tree == "main":
+                    print(self.pokedex.search(given_id))
+                else:
+                    print(self.copy.search(given_id))
             except KeyError:
                 print("That Pokemon doesn't seem to exist")
             except AttributeError:
@@ -89,8 +127,20 @@ class Executive:
     def remove(self):
         """Given a Pokédex number, remove that entry from the BST. When removing, the maximum value
         from the target's LST should be the replacement candidate """
+
+        # Mark which tree is being manipulated by default
+        tree = "main"
+
+        # If a copy exists choose which tree should be manipulated
+        if self.copy:
+            tree = choose_tree()
+
         try:
-            self.pokedex.remove(int(input("Enter a Pokemon number to remove: ")))
+            if tree == "main":
+                self.pokedex.remove(int(input("Enter a Pokemon number to remove: ")))
+            else:
+                self.copy.remove(int(input("Enter a Pokemon number to remove: ")))
+
         except ValueError:
             print("Invalid input, enter an integer")
 
