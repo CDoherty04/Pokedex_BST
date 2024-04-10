@@ -164,6 +164,19 @@ class Executive:
     def run(self):
         """Runs the program through the Executive class"""
 
+        # Have the user enter an input file
+        input_file = input("File name: ")
+
+        # Invalid file names will automatically raise an error
+        with open(input_file, "r") as file:
+            lines = file.readlines()
+
+        lines = [line.strip() for line in lines]
+
+        for line in lines:
+            # Add each Pokémon in the given file to the Pokédex
+            self.pokedex.add(Pokemon(line.split("\t")[0], line.split("\t")[2], int(line.split("\t")[1])))
+
         while True:
             choice = print_menu().lower()
             print()
