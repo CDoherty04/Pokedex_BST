@@ -19,6 +19,7 @@ class Executive:
     def __init__(self):
         """Creates the initial Binary Search Tree"""
         self.pokedex = BST()
+        self.copy = None
 
     def add(self):
         """User input determines the attributes of the added Pokémon to the Pokédex"""
@@ -93,12 +94,18 @@ class Executive:
         except ValueError:
             print("Invalid input, enter an integer")
 
-    def copy(self):
+    def copy_tree(self):
         """Creates a deep copy of the BST. The user can only select this option once.
         If the user tries to make multiple copies, issue a message stating that a copy already exists.
         Once the user makes a copy, ask which tree they wish to use each subsequent time they request an
         Add, Search, or Remove operation"""
-        pass
+
+        # Only allow one copy
+        if self.copy:
+            print("A copy already exists")
+        else:
+            self.copy = self.pokedex
+            print("A copy was successfully made")
 
     def run(self):
         """Runs the program through the Executive class"""
@@ -115,8 +122,8 @@ class Executive:
                 case "print": self.ordered_print()
                 case "4": self.remove()
                 case "remove": self.remove()
-                case "5": self.copy()
-                case "copy": self.copy()
+                case "5": self.copy_tree()
+                case "copy": self.copy_tree()
                 case "6": quit()
                 case "quit": quit()
                 case _: print("That is an invalid option")

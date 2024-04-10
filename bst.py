@@ -162,3 +162,18 @@ class BST:
             root.left = self._rec_remove(root.left, temp.entry.id)
 
         return root
+
+    def copy(self):
+        if self._root is None:
+            return None  # Empty tree
+        return self._rec_copy(self._root)
+
+    def _rec_copy(self, cur_node):
+        # Create a new node with the same entry.id
+        new_node = BinaryNode(cur_node.entry.id)
+
+        # Recursively copy the left and right subtrees
+        new_node.left = self._rec_copy(cur_node.left)
+        new_node.right = self._rec_copy(cur_node.right)
+
+        return new_node
