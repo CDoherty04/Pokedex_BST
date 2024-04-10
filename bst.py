@@ -1,6 +1,14 @@
 from binarynode import BinaryNode
 
 
+def _find_max(node):
+    current = node
+    # loop down to rightmost leaf
+    while current.right is not None:
+        current = current.right
+    return current
+
+
 class BST:
 
     def __init__(self):
@@ -116,14 +124,41 @@ class BST:
     def remove(self, key):
         """Removes the target node from the BST"""
 
-        if self._root is None:
-            raise KeyError
+        self._root = self._rec_remove(self._root, key)
 
-        return self._rec_search(key, self._root)
+    def _rec_remove(self, root, key):
+        if root is None:
+            return root
 
-    def _rec_remove(self, key, cur_node):
-        """Recursively searches downstream until it finds the target and removes it"""
+        # If the key is less than the root's id
+        if key < root.entry.id:
+            root.left = self._rec_remove(root.left, key)
 
-        if cur_node.entry == key:
-            # Figure out how to update parent node
-            temp = cur_node
+        # If the key is greater than the root's id
+        elif key > root.entry.id:
+            root.right = self._rec_remove(root.right, key)
+
+        # If the key is found
+        else:
+            # Node with one or no child
+            if root.left is None:
+                temp = root.right
+                root = None
+                return temp
+
+            elif root.right is None:
+                temp = root.left
+                root = None
+                return temp
+
+            # Node with two children
+            # Get maximum value node (largest in the left subtree)
+            temp = _find_max(root.left)
+
+            # Copy the maximum value node's id to the current node
+            root.id = temp.entry.id
+
+            # Delete the maximum value node
+            root.left = self._rec_remove(root.left, temp.entry.id)
+
+        return root

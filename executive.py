@@ -24,13 +24,20 @@ class Executive:
         """User input determines the attributes of the added Pokémon to the Pokédex"""
         us_name = input("What is the US name: ")
         jap_name = input("What is the Japanese name: ")
-        pokemon_id = int(input("What is the Pokedex number: "))
 
-        new_pokemon = Pokemon(us_name, jap_name, pokemon_id)
-        try:
-            self.pokedex.add(new_pokemon)
-        except ValueError:
-            print("Cannot add duplicates")
+        while True:
+            try:
+                pokemon_id = int(input("What is the Pokedex number: "))
+            except ValueError:
+                print("\nThe Pokedex number was invalid.\n")
+                continue
+
+            try:
+                new_pokemon = Pokemon(us_name, jap_name, pokemon_id)
+                self.pokedex.add(new_pokemon)
+                break
+            except ValueError:
+                print("\nCannot add duplicates\n")
 
     def search(self):
         """Prompt the user for an id. Either print all information OR tell the user that the Pokémon doesn't exist.
@@ -81,7 +88,10 @@ class Executive:
     def remove(self):
         """Given a Pokédex number, remove that entry from the BST. When removing, the maximum value
         from the target's LST should be the replacement candidate """
-        pass
+        try:
+            self.pokedex.remove(int(input("Enter a Pokemon number to remove: ")))
+        except ValueError:
+            print("Invalid input, enter an integer")
 
     def copy(self):
         """Creates a deep copy of the BST. The user can only select this option once.
