@@ -2,6 +2,8 @@ from binarynode import BinaryNode
 
 
 def _find_max(node):
+    """Finds the largest (rightmost) node of a subtree"""
+
     current = node
     # loop down to rightmost leaf
     while current.right is not None:
@@ -164,16 +166,22 @@ class BST:
         return root
 
     def copy(self):
-        if self._root is None:
-            return None  # Empty tree
+        """Copies the tree"""
+
         return self._rec_copy(self._root)
 
     def _rec_copy(self, cur_node):
-        # Create a new node with the same entry.id
-        new_node = BinaryNode(cur_node.entry.id)
 
-        # Recursively copy the left and right subtrees
-        new_node.left = self._rec_copy(cur_node.left)
-        new_node.right = self._rec_copy(cur_node.right)
+        # Empty (sub)tree
+        if cur_node is None:
+            return None
 
-        return new_node
+        else:
+            # Create a new node with the same entry
+            new_node = BinaryNode(cur_node.entry)
+
+            # Recursively copy the left and right subtrees
+            new_node.left = self._rec_copy(cur_node.left)
+            new_node.right = self._rec_copy(cur_node.right)
+
+            return new_node

@@ -15,7 +15,7 @@ def print_menu():
 
 
 def choose_tree():
-    """"""
+    """Gets user input to decide whether to manipulate the main tree or the copied tree"""
 
     while True:
 
@@ -26,6 +26,7 @@ def choose_tree():
             return "main"
         elif tree == "copy" or tree == "the copy" or tree == "2":
             return "copy"
+
         # Only break when valid input is given
         else:
             print("That's an invalid input, try typing '1' or '2'")
@@ -154,11 +155,15 @@ class Executive:
         if self.copy:
             print("A copy already exists")
         else:
-            self.copy = self.pokedex
-            print("A copy was successfully made")
+            self.copy = self.pokedex.copy()
+            if self.copy:
+                print("A copy was successfully made")
+            else:
+                print("Nothing to copy")
 
     def run(self):
         """Runs the program through the Executive class"""
+
         while True:
             choice = print_menu().lower()
             print()
